@@ -40,8 +40,12 @@ export default Router.extend({
 			scope: 'user,repo',
 			redirect_uri: window.location.origin + '/auth/callback',
 			client_id: 'f8dd69187841cdd22a26'
-
 		}) 
+	},
+
+	logout () {
+		window.localStorage.clear()
+		window.location = '/'
 	},
 
 	authCallback (query) {
@@ -54,6 +58,7 @@ export default Router.extend({
 		}, (err, req, body) => {
 			console.log(body)
 			app.user.token = body.token
+			this.redirectTo('/repos')
 		})
 	}
 })
