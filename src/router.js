@@ -24,6 +24,7 @@ export default Router.extend({
 		'': 'public',
 		'repos': 'repos',
 		'login': 'login',
+		'logout': 'logout',
 		'auth/callback?:query': 'authCallback'
 	},
 
