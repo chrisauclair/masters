@@ -1,3 +1,4 @@
+import React from 'react'
 import Router from './router'
 import styles from './styles/main.styl'
 
