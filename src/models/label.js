@@ -1,4 +1,5 @@
 import Model from 'ampersand-model'
+import xhr from 'xhr'
 import githubMixin from '../helpers/github-mixin'
 
 export default Model.extend(githubMixin, {
@@ -14,5 +15,22 @@ export default Model.extend(githubMixin, {
 			type: 'boolean',
 			default: false
 		}
+	},
+
+	update(attributes) {
+		const oldAttributes = this.getAttributes({props: true, session: false})
+		xhr({
+			url: this.url(),
+			json: attributes,
+			method: 'PATCH',
+			headers: {
+				Authorization: 'token ' + app.user.token
+			}
+		}, (err, req, body) => {
+			if (err) {
+				this.set(oldAttributes)
+			}
+		})
+		this.set(attributes)
 	}
 })
