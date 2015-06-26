@@ -8,6 +8,7 @@ import ReposPage from './pages/repos'
 import RepoDetail from './pages/repo-detail'
 import MessagePage from './pages/message'
 import Layout from './layout'
+import config from './config'
 
 function requiresAuth (handlerName) {
 	return function () {
@@ -59,7 +60,7 @@ export default Router.extend({
 		window.location = "https://github.com/login/oauth/authorize?" + qs.stringify({
 			scope: 'user,repo',
 			redirect_uri: window.location.origin + '/auth/callback',
-			client_id: 'f8dd69187841cdd22a26'
+			client_id: config.clientId
 		}) 
 	},
 
@@ -73,7 +74,7 @@ export default Router.extend({
 		console.log(query)
 
 		xhr({
-			url: 'https://labelr-localhost.herokuapp.com/authenticate/' + query.code,
+			url: config.authUrl + '/' + query.code,
 			json: true
 		}, (err, req, body) => {
 			console.log(body)
